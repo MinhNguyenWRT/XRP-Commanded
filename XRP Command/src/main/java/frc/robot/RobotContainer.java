@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Auton;
 import frc.robot.subsystems.XRPDrivetrain;
 
@@ -22,7 +21,6 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final XRPDrivetrain m_xrpDrivetrain = new XRPDrivetrain();
 
-  // private final ExampleCommand m_autoCommand = new ExampleCommand(m_xrpDrivetrain);
   private final Auton m_Auton = new Auton(m_xrpDrivetrain);
   private final PS4Controller PS4Controller = new PS4Controller(0);
 
@@ -49,9 +47,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
     return m_Auton;
-    // return m_autoCommand;
   }
 
   public Command getArcadeDriveCommand() {

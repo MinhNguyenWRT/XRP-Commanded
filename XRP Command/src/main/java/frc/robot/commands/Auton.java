@@ -14,10 +14,14 @@ public class Auton extends Command{
 
     public void initialize() {
       System.out.println("Auton start");
+      Commands.waitSeconds(5).schedule();
+      
+
       Commands.sequence(
-        Commands.runOnce(() -> m_XRPDrivetrain.arcadeDrive(1, 1), m_XRPDrivetrain),
-        Commands.waitSeconds(3),
-        Commands.runOnce(() -> m_XRPDrivetrain.arcadeDrive(0, 0), m_XRPDrivetrain)
-        );
+        Commands.race(
+          Commands.run(() -> m_XRPDrivetrain.arcadeDrive(1, 0.5), m_XRPDrivetrain),
+          Commands.waitSeconds(3)
+        )
+        ).schedule();;
     }
 }
