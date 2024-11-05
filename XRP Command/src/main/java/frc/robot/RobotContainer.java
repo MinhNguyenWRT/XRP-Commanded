@@ -4,12 +4,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.Auton;
 import frc.robot.subsystems.XRPDrivetrain;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -20,8 +22,10 @@ import frc.robot.subsystems.XRPDrivetrain;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final XRPDrivetrain m_xrpDrivetrain = new XRPDrivetrain();
-
+  // private final AnalogInput m_lIRSensor = new AnalogInput(0);
+  // private final AnalogInput m_rIRSensor = new AnalogInput(1);
   private final Auton m_Auton = new Auton(m_xrpDrivetrain);
+
   private final PS4Controller PS4Controller = new PS4Controller(0);
 
 
