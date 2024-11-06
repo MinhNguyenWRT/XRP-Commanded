@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
@@ -22,9 +24,10 @@ import frc.robot.subsystems.XRPDrivetrain;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final XRPDrivetrain m_xrpDrivetrain = new XRPDrivetrain();
-  // private final AnalogInput m_lIRSensor = new AnalogInput(0);
-  // private final AnalogInput m_rIRSensor = new AnalogInput(1);
-  private final Auton m_Auton = new Auton(m_xrpDrivetrain);
+  private final AnalogInput m_lIRSensor = new AnalogInput(0);
+  private final AnalogInput m_rIRSensor = new AnalogInput(1);
+
+  private final Auton m_Auton = new Auton(m_lIRSensor, m_rIRSensor, m_xrpDrivetrain);
 
   private final PS4Controller PS4Controller = new PS4Controller(0);
 
@@ -56,5 +59,9 @@ public class RobotContainer {
 
   public Command getArcadeDriveCommand() {
     return new ArcadeDrive(m_xrpDrivetrain, () -> PS4Controller.getLeftY(), () -> PS4Controller.getRightX());
+  }
+
+  public Command getLineSensorCommand() {
+    return new Auton(m_rIRSensor, m_lIRSensor, m_xrpDrivetrain);
   }
 }

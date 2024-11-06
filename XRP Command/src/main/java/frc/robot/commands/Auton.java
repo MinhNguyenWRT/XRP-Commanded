@@ -11,31 +11,25 @@ import frc.robot.subsystems.XRPDrivetrain;
 public class Auton extends Command{
   private final XRPDrivetrain m_XRPDrivetrain;
 
-  private AnalogInput m_leftSensor = new AnalogInput(0);
-  private AnalogInput m_rightSensor = new AnalogInput(1);
-  private AnalogInput m_utralSonic = new AnalogInput(2);
+  private AnalogInput m_leftSensor;
+  private AnalogInput m_rightSensor;
 
-  private DoubleSupplier m_lSensorDou = () -> m_leftSensor.getVoltage();
-  private DoubleSupplier m_rSensorDou = () -> m_rightSensor.getVoltage();
+  private DoubleSupplier m_lSensor;
+  private DoubleSupplier m_rSensor;
 
-  private BooleanSupplier m_lSensorBoolS = () -> m_leftSensor.getVoltage() > 1.0;
-  private BooleanSupplier m_rSensorBoolS = () -> m_rightSensor.getVoltage() > 1.0;
-
-
-  public Auton(XRPDrivetrain XRPDrivetrain) {
+  public Auton(AnalogInput leftSensor, AnalogInput rightSensor,XRPDrivetrain XRPDrivetrain) {
+    m_leftSensor = leftSensor;
+    m_rightSensor = rightSensor;
+    m_lSensor = () -> m_leftSensor.getVoltage();
+    m_rSensor = () -> m_rightSensor.getVoltage();
     m_XRPDrivetrain = XRPDrivetrain;
     addRequirements(XRPDrivetrain);
   }
 
-    public void initialize() {
-      System.out.println("Auton start");
-      //Work in Process
-      //Print the sensors' values
-      Commands.repeatingSequence(
-        Commands.print("\n L " + m_lSensorDou.getAsDouble()),
-        Commands.print("R " + m_rightSensor.getValue()),
-        Commands.print("Ultra Sonic: " + m_utralSonic.getVoltage()),
-        Commands.waitSeconds(1)
+    public void execute() {
+      Commands.sequence(
+        Commands.print("L " + m_lSensor.getAsDouble()),
+        Commands.print("R " + m_rSensor.getAsDouble())
       ).schedule();
       //Auton going in a straight line
       /*Commands.sequence(
